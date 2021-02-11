@@ -1,5 +1,5 @@
 <h1 class="text-center">To Do List <button class="btn btn-success" (click)="ajoutTache()">+</button></h1>
-<div class="row">
+<div class="row justify-content-center">
   <div class="form-group">
     <label for="tri">Tri</label>
     <select class="form-control" id="tri" [(ngModel)]="tri">
@@ -11,31 +11,35 @@
 </div>
 
 <table class="table table-bordered table-striped table-dark">
-    <thead>
-      <tr>
-        <th scope="col">Tâches</th>
-        <th scope="col">Statuts</th>
-        <th scope="col">Modifier</th>
-        <th scope="col">Supprimer</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let tache of taches, index as i">
+  <thead>
+    <tr>
+      <th scope="col">Tâches</th>
+      <th scope="col">Statuts</th>
+      <th scope="col">Modifier</th>
+      <th scope="col">Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tache of taches, index as i">
+      <ng-template [ngIf]="afficher(i)">
         <td>
-            <ng-template [ngIf]="!tache.modification">{{ tache.nom }}</ng-template>
-            <ng-template [ngIf]="tache.modification"><input type="text" class="form-control form-control-sm w-50" [(ngModel)]="tache.nom"></ng-template>
+          <ng-template [ngIf]="!tache.modification">{{ tache.nom }}</ng-template>
+          <ng-template [ngIf]="tache.modification"><input type="text" class="form-control form-control-sm w-50"
+              [(ngModel)]="tache.nom"></ng-template>
         </td>
         <td>
-            <ng-template [ngIf]="!tache.modification">{{ tache.statut }}</ng-template>
-            <ng-template [ngIf]="tache.modification"><button class="btn btn-secondary" (click)="confirmerTache(i)">Confirmer la réalisation de la tâche</button></ng-template>
+          <ng-template [ngIf]="!tache.modification">{{ tache.statut }}</ng-template>
+          <ng-template [ngIf]="tache.modification"><button class="btn btn-secondary"
+              (click)="confirmerTache(i)">Confirmer la réalisation de la tâche</button></ng-template>
         </td>
         <td>
-            <ng-template [ngIf]="!tache.modification"><button class="btn btn-primary" (click)="activerModification(i)">Modifier</button></ng-template>
-            <ng-template [ngIf]="tache.modification"><button class="btn btn-secondary" (click)="desactiverModification(i)">Finir la modification</button></ng-template>
+          <ng-template [ngIf]="!tache.modification"><button class="btn btn-primary"
+              (click)="activerModification(i)">Modifier</button></ng-template>
+          <ng-template [ngIf]="tache.modification"><button class="btn btn-secondary"
+              (click)="desactiverModification(i)">Finir la modification</button></ng-template>
         </td>
         <td><button class="btn btn-danger" (click)="supprimerTache(i)">Supprimer</button></td>
-      </tr>
-    </tbody>
-  </table>
-
-
+      </ng-template>
+    </tr>
+  </tbody>
+</table>
